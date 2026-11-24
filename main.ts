@@ -80,6 +80,13 @@ if (ENTRY.length < 1 || ENTRY.length > 199) {
   process.exit(1);
 }
 
+// Same gate, second half: a line of only whitespace is not a valid entry
+// even though it passes the length check, so refuse it outright.
+if (ENTRY.trim().length === 0) {
+  console.error("entry must not be only whitespace");
+  process.exit(1);
+}
+
 // Single-line rule: the entry is one line, so it must not contain a
 // newline or carriage return anywhere.
 if (ENTRY.includes("\n") || ENTRY.includes("\r")) {
